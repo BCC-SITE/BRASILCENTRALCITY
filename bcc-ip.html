@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Conexão ao Servidor - BRASIL CENTRAL CITY</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: #eaeaea;
+            margin: 0;
+            padding: 20px;
+            display: flex;
+            justify-content: center;
+        }
+        .container {
+            max-width: 900px;
+            width: 100%;
+            background-color: #fff;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+            overflow: hidden;
+            padding: 20px;
+        }
+        .header {
+            width: 100%;
+            background-color: #3a3a3a;
+            color: #fff;
+            padding: 20px;
+            text-align: center;
+            border-top-left-radius: 10px;
+            border-top-right-radius: 10px;
+            margin-bottom: 20px;
+        }
+        .logo {
+            width: 200px; /* Ajuste conforme necessário */
+            height: auto;
+            margin-bottom: 10px;
+        }
+        .city-info {
+            display: flex;
+            align-items: center;
+            margin-bottom: 20px;
+        }
+        .city-info img {
+            max-width: 150px;
+            border-radius: 8px;
+            margin-right: 20px;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+        }
+        .city-info .city-description {
+            flex: 1;
+        }
+        .city-info h2 {
+            color: #333;
+            font-size: 1.5em;
+            margin: 0;
+            font-weight: bold;
+            margin-bottom: 10px;
+        }
+        .city-info p {
+            color: #000000;
+            line-height: 1.6;
+            margin-bottom: 0;
+        }
+        .connection-info {
+            padding: 20px;
+            background-color: #f9f9f9;
+            border-top: 1px solid #ddd;
+        }
+        .connection-info label {
+            display: block;
+            margin-bottom: 10px;
+            color: #333;
+        }
+        .connection-info input[type="text"] {
+            width: 100%;
+            padding: 10px;
+            margin-bottom: 15px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            box-sizing: border-box;
+            font-size: 1em;
+            transition: border-color 0.3s;
+        }
+        .connection-info input[type="text"]:focus {
+            border-color: #3a3a3a;
+            outline: none;
+        }
+        .connection-info button {
+            display: inline-block;
+            padding: 10px 20px;
+            background-color: #3a3a3a;
+            color: #fff;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 1em;
+            transition: background-color 0.3s, transform 0.2s;
+        }
+        .connection-info button:hover {
+            background-color: #555;
+            transform: scale(1.05);
+        }
+        .copyright {
+            text-align: center;
+            margin-top: 20px;
+            color: #000000;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <img src="paty/imgs/icon-logo.png" alt="Logo Brasil Central City" class="logo">
+            <h1>Conexão ao Servidor - BRASIL CENTRAL CITY</h1>
+        </div>
+        
+        <div class="city-info">
+            <img src="paty/imgs/icon-fundo4.jpg" alt="Imagem da Cidade" class="city-image">
+            <div class="city-description">
+                <h2>Sobre Cidade</h2>
+                <p>Bem-vindo à Brasil Central City, na emocionante Season 5! Nossa cidade está repleta de oportunidades e desafios únicos, projetados para uma experiência de roleplay imersiva e inovadora. Explore novos locais, conheça personagens fascinantes e mergulhe em histórias envolventes que moldam o destino desta metrópole dinâmica no MTA.</p>
+            </div>
+        </div>
+        
+        <div class="connection-info">
+            <label for="serverIp">IP do Servidor:</label>
+            <input type="text" id="serverIp" name="serverIp" value="197.454.4.4441" readonly>
+            <button onclick="copyToClipboard()">Copiar IP</button>
+        </div>
+
+        <div class="copyright">
+            &copy; 2024 Brasil Central City - Todos os direitos reservados
+        </div>
+    </div>
+
+    <script>
+        function copyToClipboard() {
+            const serverIp = document.getElementById("serverIp");
+            serverIp.select();
+            document.execCommand("copy");
+            showMessage("IP copiado para a área de transferência.");
+        }
+
+        function showMessage(message) {
+            const messageContainer = document.createElement('div');
+            messageContainer.textContent = message;
+            messageContainer.classList.add("info-box");
+            document.body.appendChild(messageContainer);
+            setTimeout(() => {
+                messageContainer.remove();
+            }, 3000);
+        }
+    </script>
+</body>
+</html>

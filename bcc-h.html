@@ -1,0 +1,335 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Histórias de Personagens - BRASIL CENTRAL CITY</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <style>
+        /* Estilos do loader */
+        .loader {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 3px; /* Altura da barra de progresso */
+            background-color: #00ccff; /* Cor de fundo da barra de progresso */
+            z-index: 9999; /* Z-index alto para garantir visibilidade */
+        }
+        .loader .progress {
+            height: 100%;
+            background-color: #3a3a3a; /* Cor da barra de progresso */
+            width: 0; /* Inicia com largura zero */
+            transition: width 0.3s ease-out; /* Transição suave da largura */
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: #eaeaea;
+            margin: 0;
+            padding: 20px;
+            display: flex;
+            justify-content: center;
+            align-items: center; /* Centraliza verticalmente o conteúdo */
+            min-height: 100vh; /* Garante altura mínima de visualização */
+        }
+        .container {
+            max-width: 900px;
+            width: 100%;
+            background-color: #fff;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+            overflow: hidden;
+        }
+        .header {
+            width: 100%;
+            background-color: #3a3a3a;
+            color: #fff;
+            padding: 20px;
+            text-align: center;
+            border-top-left-radius: 10px;
+            border-top-right-radius: 10px;
+            margin-bottom: 20px;
+        }
+        .logo {
+            width: 200px; /* Ajuste conforme necessário */
+            height: auto;
+            margin-bottom: 10px;
+        }
+        h1 {
+            text-align: center;
+            padding: 20px;
+            background-color: #3a3a3a;
+            color: #fff;
+            margin: 0;
+        }
+        form {
+            padding: 20px;
+            background-color: #f9f9f9;
+            border-top: 1px solid #ddd;
+        }
+        form label {
+            display: block;
+            margin-bottom: 10px;
+            color: #333;
+        }
+        form input[type="text"], form textarea {
+            width: 100%;
+            padding: 10px;
+            margin-bottom: 15px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            box-sizing: border-box;
+            font-size: 1em;
+            transition: border-color 0.3s;
+        }
+        form input[type="text"]:focus, form textarea:focus {
+            border-color: #3a3a3a;
+            outline: none;
+        }
+        form button {
+            display: inline-block;
+            padding: 10px 20px;
+            background-color: #3a3a3a;
+            color: #fff;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 1em;
+            transition: background-color 0.3s, transform 0.2s;
+        }
+        form button:hover {
+            background-color: #555;
+            transform: scale(1.05);
+        }
+        .story {
+            padding: 20px;
+            border-bottom: 1px solid #ddd;
+            background-color: #fafafa;
+            transition: background-color 0.3s, box-shadow 0.3s;
+            border-radius: 8px;
+            margin: 15px;
+        }
+        .story:last-child {
+            border-bottom: none;
+        }
+        .story:hover {
+            background-color: #f1f1f1;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+        }
+        .story h2 {
+            margin-top: 0;
+            color: #333;
+            font-size: 1.3em;
+            font-weight: bold;
+            margin-bottom: 10px;
+        }
+        .story p {
+            color: #666;
+            line-height: 1.6;
+            margin-bottom: 15px;
+        }
+        .interactions {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-top: 10px;
+        }
+        .like, .dislike {
+            cursor: pointer;
+            font-size: 0.9em;
+            padding: 5px 10px;
+            border-radius: 5px;
+            transition: background-color 0.3s, color 0.3s;
+            border: 1px solid transparent;
+            display: flex;
+            align-items: center;
+            position: relative;
+        }
+        .like:hover, .dislike:hover {
+            background-color: #f1f1f1;
+        }
+        .like i, .dislike i {
+            margin-right: 5px;
+        }
+        .like.active, .dislike.active {
+            border-color: transparent;
+            color: #fff;
+        }
+        .like.active {
+            background-color: #4CAF50; /* Verde para Gostei */
+        }
+        .dislike.active {
+            background-color: #ff0000; /* Vermelho para Não Gostei */
+        }
+        .like.active:hover, .dislike.active:hover {
+            background-color: #555;
+        }
+        /* Estilos para a Caixa de Informações */
+        .info-box {
+            position: fixed;
+            top: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            background-color: #4CAF50; /* Cor de fundo para a caixa de informações */
+            color: #fff;
+            padding: 15px;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            text-align: center;
+            font-size: 0.9em;
+            z-index: 1000; /* Z-index para garantir que fique sobreposto */
+        }
+        .info-box:before {
+            content: "";
+            position: absolute;
+            top: -8px;
+            left: 50%;
+            transform: translateX(-50%);
+            border-width: 8px;
+            border-style: solid;
+            border-color: transparent transparent #4CAF50 transparent;
+        }
+        .message {
+            margin-top: 5px;
+            font-size: 0.9em;
+            color: #777;
+        }
+    </style>
+</head>
+<body>
+    <!-- Barra de Progresso -->
+    <div class="loader">
+        <div class="progress"></div>
+    </div>
+
+    <div class="container">
+        <div class="header">
+            <img src="paty/imgs/icon-logo.png" alt="Logo Brasil Central City" class="logo">
+            <h1> Histórias de Personagens - BCC</h1>
+        </div>
+        
+        <!-- Formulário para enviar uma nova história -->
+        <form id="storyForm">
+            <h2>Envie sua História</h2>
+            <label for="charName">Nome do Personagem:</label>
+            <input type="text" id="charName" name="charName" required>
+            
+            <label for="story">História:</label>
+            <textarea id="story" name="story" rows="4" required></textarea>
+            
+            <button type="submit">Enviar História</button>
+        </form>
+        
+        <hr>
+
+        <!-- Lista de histórias -->
+        <div id="storyList">
+            <!-- Histórias serão adicionadas aqui dinamicamente -->
+        </div>
+    </div>
+
+    <script>
+        // Simulação de dados de histórias
+        let stories = [
+            { charName: "João", story: "Uma história emocionante sobre aventuras em BCC." },
+            { charName: "Maria", story: "Como meu personagem encontrou seu destino em BCC." }
+        ];
+
+        // Seleciona a barra de progresso
+        const progressBar = document.querySelector('.loader .progress');
+
+        // Função para atualizar a barra de progresso
+        function updateProgressBar(progress) {
+            progressBar.style.width = `${progress}%`;
+        }
+
+        // Função para exibir as histórias
+        function displayStories() {
+            const storyList = document.getElementById("storyList");
+            storyList.innerHTML = ''; // Limpa o conteúdo atual
+
+            stories.forEach((story, index) => {
+                const storyDiv = document.createElement('div');
+                storyDiv.classList.add("story");
+                storyDiv.innerHTML = `
+                    <h2>${story.charName}</h2>
+                    <p>${story.story}</p>
+                    <div class="interactions">
+                        <span class="like" onclick="likeStory(${index})"><i class="fas fa-thumbs-up"></i> Gostei</span>
+                        <span class="dislike" onclick="dislikeStory(${index})"><i class="fas fa-thumbs-down"></i> Não Gostei</span>
+                    </div>
+                    <div class="message"></div>
+                `;
+                storyList.appendChild(storyDiv);
+            });
+
+            // Após exibir as histórias, esconder a barra de progresso
+            hideProgressBar();
+        }
+
+        // Função para esconder a barra de progresso
+        function hideProgressBar() {
+            const loader = document.querySelector('.loader');
+            loader.style.opacity = '0';
+            setTimeout(() => {
+                loader.style.display = 'none';
+            }, 320); // Tempo de espera para a animação de transição
+        }
+
+        // Função para adicionar uma nova história
+        document.getElementById("storyForm").addEventListener("submit", function(event) {
+            event.preventDefault();
+            const charName = document.getElementById("charName").value;
+            const storyText = document.getElementById("story").value;
+            stories.push({ charName: charName, story: storyText });
+            displayStories();
+            document.getElementById("storyForm").reset();
+
+            // Exibir mensagem de sucesso
+            showMessage("História enviada com sucesso!");
+        });
+
+        // Funções para interação (simulação)
+        function likeStory(index) {
+            const likeButton = document.getElementsByClassName("like")[index];
+            likeButton.classList.toggle("active");
+            if (likeButton.classList.contains("active")) {
+                showMessage(`Você gostou da história de ${stories[index].charName}!`, index);
+                // Certifique-se de que o botão "Não Gostei" não esteja ativo
+                const dislikeButton = document.getElementsByClassName("dislike")[index];
+                dislikeButton.classList.remove("active");
+            } else {
+                showMessage(`Você removeu o seu gostei da história de ${stories[index].charName}.`, index);
+            }
+        }
+
+        function dislikeStory(index) {
+            const dislikeButton = document.getElementsByClassName("dislike")[index];
+            dislikeButton.classList.toggle("active");
+            if (dislikeButton.classList.contains("active")) {
+                showMessage(`Você não gostou da história de ${stories[index].charName}.`, index);
+                // Certifique-se de que o botão "Gostei" não esteja ativo
+                const likeButton = document.getElementsByClassName("like")[index];
+                likeButton.classList.remove("active");
+            } else {
+                showMessage(`Você removeu o seu não gostei da história de ${stories[index].charName}.`, index);
+            }
+        }
+
+        // Função para exibir mensagem de feedback
+        function showMessage(message, index) {
+            const messageContainer = document.createElement('div');
+            messageContainer.textContent = message;
+            messageContainer.classList.add("info-box");
+            document.body.appendChild(messageContainer);
+            setTimeout(() => {
+                messageContainer.remove();
+            }, 3000); // Oculta a mensagem após 3 segundos
+        }
+
+        // Exibir histórias ao carregar a página
+        displayStories();
+    </script>
+</body>
+</html>

@@ -1,0 +1,450 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>BRASIL CENTRAL CITY</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <style>
+        .loader {
+            position: fixed;
+            z-index: 9999;
+            background-color: #1c1c1c;
+            width: 100%;
+            height: 100%;
+            top: 0;
+            left: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-direction: column;
+            color: white;
+            font-family: Arial, sans-serif;
+        }
+        .loader img {
+            width: 245px; /* Ajuste o tamanho da imagem conforme necessário */
+            height: auto;
+            animation: spin 2s linear infinite;
+        }
+        .loader .progress {
+            width: 80%;
+            background-color: #333;
+            height: 10px;
+            margin-top: 20px;
+        }
+        .loader .progress .bar {
+            height: 100%;
+            background-color: hsl(189, 100%, 50%);
+            animation: progress 3s linear forwards;
+        }
+        /* Estilos globais */
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #1c1c1c;
+            color: white;
+            margin: 0;
+            padding: 0;
+            position: relative;
+            min-height: 100vh; /* Para ocupar pelo menos toda a altura da viewport */
+        }
+
+        /* Estilos do cabeçalho */
+        .navbar {
+            background-color: #121212;
+            border-bottom: 4px solid hsl(189, 100%, 50%);
+        }
+
+        .navbar-brand {
+            font-size: 1.8em;
+            font-weight: bold;
+            display: flex;
+            align-items: center;
+        }
+
+        .navbar-brand img {
+            width: 65px;
+            margin-right: 10px;
+        }
+
+        .navbar-nav .nav-link {
+            color: white;
+            font-size: 1.2em;
+            margin-right: 20px;
+        }
+
+        .navbar-nav .nav-link:hover {
+            color: hsl(189, 100%, 50%);
+        }
+
+        /* Estilos do herói */
+        .hero {
+            background: url('https://wallpaperaccess.com/full/4411316.jpg') no-repeat center center/cover;
+            height: 600px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            color: white;
+            display: none; /* Inicialmente oculto */
+        }
+
+        .hero h1 {
+            font-size: 4em;
+            margin-bottom: 20px;
+        }
+
+        .hero p {
+            font-size: 1.5em;
+            margin-bottom: 30px;
+        }
+
+        /* Estilos do conteúdo principal */
+        .main-content {
+            padding: 65px 0;
+            /* display: none; Removido para que seja exibido após o carregamento */
+        }
+
+        .feature {
+            text-align: center;
+            margin-bottom: 30px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .feature img {
+            max-width: 100%;
+            height: auto;
+            transition: transform 0.3s ease;
+        }
+
+        .feature:hover img {
+            transform: scale(1.1);
+        }
+
+        .feature h2 {
+            font-size: 2.5em;
+            margin-bottom: 20px;
+        }
+
+        .feature p {
+            font-size: 1.2em;
+            line-height: 1.6;
+        }
+
+/* Estilos do Rodapé */
+footer {
+    background-color: #121212;
+    color: white;
+    text-align: center;
+    padding: 20px 0;
+    position: relative; /* Alterado para relativo para ajustar ao conteúdo */
+    margin-top: 65px; /* Ajusta a margem superior para afastar da seção de redes sociais */
+}
+
+footer p {
+    margin-bottom: 10px; /* Reduzido o espaçamento inferior */
+}
+
+footer a {
+    color: hsl(189, 100%, 50%);
+    text-decoration: none;
+}
+
+footer a:hover {
+    text-decoration: underline;
+}
+
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #1c1c1c;
+            color: white;
+            margin: 0;
+            padding: 0;
+        }
+
+        .navbar {
+            background-color: #121212;
+            border-bottom: 4px solid hsl(189, 100%, 50%);
+        }
+
+        .navbar-brand {
+            font-size: 1.8em;
+            font-weight: bold;
+        }
+
+        .navbar-nav .nav-link {
+            color: white;
+            font-size: 1.2em;
+        }
+
+        .navbar-nav .nav-link:hover {
+            color: hsl(189, 100%, 50%);
+        }
+
+        .container {
+            padding: 20px;
+        }
+
+        .events {
+            margin-bottom: 30px;
+        }
+
+        .events table {
+            width: 100%;
+            background-color: #333;
+            color: white;
+            border-radius: 8px;
+            overflow: hidden;
+        }
+
+        .events th, .events td {
+            padding: 12px;
+            text-align: center;
+        }
+
+        .events th {
+            background-color: #1c1c1c;
+        }
+
+        .events tbody tr:nth-child(even) {
+            background-color: #555;
+        }
+
+        footer {
+            background-color: #121212;
+            color: white;
+            text-align: center;
+            padding: 20px 0;
+        }
+
+        footer a {
+            color: hsl(189, 100%, 50%);
+        }
+
+        .welcome-section {
+            background-image: url('paty/imgs/icon-fundo3.jpg');
+            background-size: cover;
+            background-position: center;
+            color: rgb(0, 0, 0);
+            text-align: center;
+            padding: 165px 120px;
+            border-radius: 8px;
+            margin-bottom: 30px;
+        }
+/* Estilos para o Painel de Redes Sociais */
+#redes-sociais {
+    background-color: #121212;
+    color: white;
+    padding: 65px 0;
+    margin-top: 65px;
+    text-align: center;
+}
+
+.social-icons {
+    margin-top: 20px;
+}
+
+.social-icon {
+    font-size: 1em; /* Reduz o tamanho dos ícones */
+    color: #fff;
+    margin: 0 10px; /* Espaçamento entre os ícones */
+    transition: transform 0.3s ease;
+}
+
+.social-icon:hover {
+    transform: scale(1.1); /* Efeito de escala ao passar o mouse */
+}
+    </style>
+</head>
+<body>
+    <!-- Loader -->
+    <div class="loader">
+        <img src="paty/imgs/icon-logo.png" alt="Logo do Servidor RP">
+        <div class="progress">
+            <div class="bar"></div>
+        </div>
+        <p>Carregando...</p>
+    </div>
+
+    <!-- Navbar -->
+    <nav class="navbar navbar-expand-lg">
+        <div class="container">
+            <a class="navbar-brand" href="#">
+                <img src="paty/imgs/icon-logo.png" alt="Logo do Servidor RP">
+                BRASIL CENTRAL CITY
+            </a>
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ml-auto">
+                    <li class="nav-item">
+                        <a class="nav-link" href="bcc-h.html">Historia</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#updates">Updates</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#sobrenos">Sobre Nós</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#events">Calendário</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#equipe">Equipe</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="bcc-suporte.html">Contato</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#redes-sociais">Redes Sociais</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Conteúdo Principal -->
+    <div class="container">
+        <section class="welcome-section">
+            <h1>Bem-vindo ao BRASIL CENTRAL CITY</h1>
+            <p>Explore um mundo de possibilidades no seu servidor de RP. Roleplay de alta qualidade para sua comunidade.</p>
+            <a href="bcc-ip.html" class="btn btn-primary btn-lg">Conexão</a>
+        </section>
+
+    <!-- Content -->
+    <div class="container">
+        <!-- Calendário de Eventos -->
+        <div id="events" class="events">
+            <h2>Calendário de Eventos</h2>
+            <table class="table table-dark table-striped">
+                <thead>
+                    <tr>
+                        <th>Data</th>
+                        <th>Evento</th>
+                        <th>Descrição</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>01/07/2024</td>
+                        <td>Evento A</td>
+                        <td>Descrição do Evento A.</td>
+                    </tr>
+                    <tr>
+                        <td>10/07/2024</td>
+                        <td>Evento B</td>
+                        <td>Descrição do Evento B.</td>
+                    </tr>
+                    <tr>
+                        <td>20/07/2024</td>
+                        <td>Evento C</td>
+                        <td>Descrição do Evento C.</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <!-- Main Content -->
+    <section id="updates" class="main-content">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="feature">
+                        <img src="paty/imgs/icon-fundo1.png" alt="Sobre nós">
+                        <h2>Updates</h2>
+                        <p>Conheça as atualizações mais recentes que implementamos para melhorar a experiência de RP em nosso servidor.</p>
+                    </div>
+                </div>
+
+    <section id="sobrenos" class="main-content"></section>
+                <div class="col-md-6">
+                    <div class="feature">
+                        <img src="paty/imgs/icon-fundo2.jpg" alt="Recursos">
+                        <h2>Sobre Nós</h2>
+                        <p>Estamos na 5ª Season de BRASIL CENTRAL CITY! Continuamos comprometidos em oferecer uma experiência de roleplay ainda mais envolvente e dinâmica. Prepare-se para novidades emocionantes e desafios inéditos enquanto exploramos juntos novos horizontes!</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Equipe -->
+    <section id="equipe" class="main-content">
+        <div class="container">
+            <div class="row">
+                <div class="col">
+                    <div class="feature">
+                        <h2>Nossa Equipe</h2>
+                        <p>Na BRASIL CENTRAL CITY, nossa equipe é composta por indivíduos apaixonados e dedicados, cada um contribuindo com talento único para criar uma comunidade de roleplay excepcional. Desde desenvolvedores experientes até moderadores atenciosos, todos trabalham juntos para garantir que sua experiência em nosso servidor seja memorável e enriquecedora. Junte-se a nós e conheça as pessoas por trás da magia do BRASIL CENTRAL CITY!</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contato -->
+    <section id="contato" class="main-content">
+        <div class="container">
+            <div class="row">
+                <div class="col">
+                    <div class="feature">
+                        <h2>Entre em Contato</h2>
+                        <p>Estamos aqui para ajudar. Envie-nos suas dúvidas, sugestões ou apenas diga olá!</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+<!-- Seção de Redes Sociais -->
+<section id="redes-sociais">
+    <h2>Siga-nos</h2>
+    <div class="container">
+        <a href="#"><img src="paty/redes/facebook-colorido.png" alt="Facebook" style="width: 65px;"></a>
+        <a href="#"><img src="paty/redes/twitter-colorido.png" alt="Twitter" style="width: 65px;"></a>
+        <a href="#"><img src="paty/redes/instagram-colorido.png" alt="Instagram" style="width: 65px;"></a>
+        <a href="#"><img src="paty/redes/youtube-colorido.png" alt="YouTube" style="width: 65px;"></a>
+        <a href="https://discord.gg/jF3ZTMaEHN"><img src="paty/redes/discord-colorido.png" alt="Discord" style="width: 65px;"></a>
+    </div>
+</section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <p>&copy; 2024 BRASIL CENTRAL CITY. Todos os direitos reservados. | Desenvolvido por <a href="#">Equipe Bcc</a></p>
+        </div>
+    </footer>
+
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.4/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    <script>
+        // Remover o loader e mostrar o conteúdo após o carregamento completo da página
+        window.onload = function() {
+            var loader = document.querySelector(".loader");
+            var content = document.querySelector(".content");
+
+            // Simular um tempo de transição para a remoção suave do loader
+            setTimeout(function() {
+                loader.style.display = "none"; // Oculta o loader
+                content.style.display = "block"; // Mostra o conteúdo principal
+            }, 3000); // Tempo de simulação em milissegundos
+        };
+
+        // Animação da barra de progresso
+        var progressBar = document.querySelector(".progress .bar");
+        var width = 1;
+        var id = setInterval(frame, 30);
+        function frame() {
+            if (width >= 100) {
+                clearInterval(id);
+            } else {
+                width++;
+                progressBar.style.width = width + '%';
+            }
+        }
+    </script>
+</body>
+</html>
