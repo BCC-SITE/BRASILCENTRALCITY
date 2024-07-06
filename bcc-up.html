@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Updates - Brasil Central City</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-image: url('https://i.pinimg.com/originals/ad/cf/5f/adcf5f44df853d1d6b7ded0bc1708291.jpg');
+            background-size: cover;
+            background-position: center;
+            color: #ffffff; /* cor do texto */
+            text-align: center;
+            padding: 50px;
+        }
+        .container {
+            max-width: 600px;
+            margin: 0 auto;
+            background-color: rgba(0, 0, 0, 0.6); /* fundo semi-transparente */
+            padding: 20px;
+            border-radius: 10px;
+        }
+        h1 {
+            font-size: 36px;
+        }
+        p {
+            font-size: 18px;
+            text-align: left;
+            margin-bottom: 20px;
+        }
+        .update {
+            text-align: left;
+            margin-bottom: 10px;
+            padding: 10px;
+            background-color: rgba(255, 255, 255, 0.1);
+            border-radius: 5px;
+        }
+        /* Estilos para o loader */
+        .loader {
+            border: 4px solid rgba(255, 255, 255, 0.3);
+            border-radius: 50%;
+            border-top: 4px solid #ffffff;
+            width: 40px;
+            height: 40px;
+            animation: spin 1s linear infinite;
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            margin-top: -20px; /* metade da altura */
+            margin-left: -20px; /* metade da largura */
+            z-index: 1000; /* garante que esteja acima de outros elementos */
+        }
+
+        /* Animação do spinner */
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+    </style>
+</head>
+<body>
+    <div class="loader"></div>
+    <div class="container">
+        <img src="paty/imgs/icon-logo.png" alt="Logo Brasil Central City">
+        <h1>Bem-vindo aos Updates do Brasil Central City</h1>
+        <p>Aqui você encontrará as últimas novidades, atualizações e muito mais.</p>
+        
+        <div class="update">
+            <h2>Update: Chegaram Novos Carros na Conce</h2>
+            <p>Adicionamos uma variedade de novos carros na loja Conce. Aproveite para conferir e adquirir o seu novo veículo favorito!</p>
+        </div>
+        
+        <div class="update">
+            <h2>Update: Novos Itens do Crime Liberados</h2>
+            <p>Estamos introduzindo novos itens que estarão disponíveis para uso nos seus próximos crimes. Fique atento às novas possibilidades e estratégias!</p>
+        </div>
+    </div>
+
+    <script>
+        // Remove o loader quando o conteúdo da página estiver carregado
+        window.addEventListener('load', function() {
+            var loader = document.querySelector('.loader');
+            loader.style.display = 'none'; // Esconde o loader
+        });
+    </script>
+</body>
+</html>
